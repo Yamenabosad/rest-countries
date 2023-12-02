@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rest-countries</title>
+  <link rel="stylesheet" href="./all.css">
+  <link id="link" rel="stylesheet" href="./dark.css">
+</head>
+<body>
+  <div class="nav">
+    <div class="container">
+      <div class="mainNav">
+        <h2>Where in the world?</h2>
+        <div id="mode"><i class="fa-solid fa-moon"></i>Dark Mode</div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="filter">
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" placeholder="Search for a country...">
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Filter by Region</button>
+        <div class="dropdown-content">
+          <ul>
+            <li><a href="">Africa</a></li>
+            <li><a href="">America</a></li>
+            <li><a href="">Asia</a></li>
+            <li><a href="">Europe</a></li>
+            <li><a href="">Oceania</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="contant">
+
+    </div>
+  </div>
+  
+</body>
+<script src="./all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  axios({
+  method: 'get',
+  url: 'https://restcountries.com/v3.1/all',
+})
+  .then(function (response) {
+    
+    for (let i = 0; i <= 249; i++){// 249
+        document.getElementById("contant").innerHTML +=
+        `
+          <div id="country">
+            <img src="${response.data[i].flags.svg}" alt="img">
+            <h3>${response.data[i].name.common}</h3>
+            <p>Population:<span> ${response.data[i].population}</span></p>
+            <p>Region:<span>${response.data[i].region}</span></p>
+            <p>Capital:<span>${response.data[i].capital}</span></p>
+          </div>
+        `
+    }
+  });
+  document.getElementById("mode").addEventListener("click", function(){
+    let link = document.getElementById("link")
+    if (link == `<link id="link" rel="stylesheet" href="./light.css">`){
+      link = `<link id="link" rel="stylesheet" href="./dark.css">`
+      console.log('1' + link)
+    }else {
+      link = `<link id="link" rel="stylesheet" href="./dark.css">`
+      console.log(link)
+    }
+  })
+  
+  
+</script>
+</html>
